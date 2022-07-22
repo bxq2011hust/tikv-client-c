@@ -15,7 +15,7 @@ vector<string> convert(const vector<string_view> &o) {
   for (auto &v : o) {
     ret.emplace_back(v.data(), v.size());
   }
-  return std::move(ret);
+  return ret;
 }
 BCOSTwoPhaseCommitter::BCOSTwoPhaseCommitter(
     Cluster *_cluster, const std::string_view &_primary_lock,

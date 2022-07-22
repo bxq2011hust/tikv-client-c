@@ -77,9 +77,9 @@ namespace pingcap
             template <typename T>
             auto asyncSendReqToRegion(Backoffer &bo, std::shared_ptr<T> req, grpc::CompletionQueue *cq, boost::coroutines2::coroutine<size_t>::pull_type &in, int timeout = dailTimeout, StoreType store_type = StoreType::TiKV)
             {
-                RpcCall<T> rpc(req);
                 for (;;)
                 {
+                    RpcCall<T> rpc(req);
                     RPCContextPtr ctx = cluster->region_cache->getRPCContext(bo, region_id, store_type);
                     if (ctx == nullptr)
                     {
