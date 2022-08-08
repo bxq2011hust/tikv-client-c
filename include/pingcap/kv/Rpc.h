@@ -70,8 +70,7 @@ public:
 
     auto asyncCall(std::shared_ptr<KvConnClient> client, grpc::CompletionQueue *cq, int timeout)
     {
-        m_context = grpc::ClientContext();
-        context.set_deadline(std::chrono::system_clock::now() + std::chrono::seconds(timeout));
+        m_context.set_deadline(std::chrono::system_clock::now() + std::chrono::seconds(timeout));
         return Trait::asyncRPCCall(&m_context, client, *req, cq);
     }
 
