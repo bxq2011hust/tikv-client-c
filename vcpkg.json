@@ -1,0 +1,40 @@
+{
+  "name": "tikvclientc",
+  "version-string": "3.0.0",
+  "homepage": "https://github.com/FISCO-BCOS/FISCO-BCOS",
+  "description": "FISCO BCOS",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
+    "boost-log",
+    "boost-beast",
+    "boost-uuid",
+    "boost-heap",
+    "boost-graph",
+    "boost-property-map",
+    "boost-chrono",
+    "boost-iostreams",
+    "boost-thread",
+    "boost-test",
+    "boost-multiprecision",
+    "boost-program-options",
+    "tbb",
+    "zlib",
+    "grpc",
+    "poco",
+    "protobuf",
+    "openssl",
+    {
+      "name": "boost-context",
+      "version>=": "1.79.0-m1"
+    },
+    "boost-coroutine2"
+  ],
+  "builtin-baseline": "7e3dcf74e37034eea358934a90a11d618520e139"
+}
