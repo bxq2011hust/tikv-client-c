@@ -128,7 +128,8 @@ TEST_F(TestWith2PCRealTiKV, bcosCommmit_100) {
     clean();
     size_t commitSize = 10240;
     size_t loop = 100;
-
+    auto log = &Logger::get("bcos.2pc_test");
+    Poco::LogStream logStream(*log);
     for (size_t i = 0; i < loop; ++i) {
       srand(time(NULL));
 
@@ -169,29 +170,34 @@ TEST_F(TestWith2PCRealTiKV, bcosCommmit_100) {
         // std::this_thread::sleep_for(std::chrono::seconds(20));
 
         committer2.prewriteKeys(start_ts);
+        logStream.information()
+            << "committer2.prewriteKeys finished" << std::endl;
         auto prewriteKeys1 = std::chrono::system_clock::now();
         // scheduler commit
         auto commitTS = committer.commitKeys();
         auto commitKeysEnd = std::chrono::system_clock::now();
         auto commit = std::chrono::system_clock::now();
-        std::cout << i << ",prewrite0(ms)="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(
-                         prewriteKeys0 - start)
-                         .count()
-                  << ",prewrite1(ms)="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(
-                         prewriteKeys1 - prewriteKeys0)
-                         .count()
-                  << ",prewrite(ms)="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(
-                         prewriteKeys1 - start)
-                         .count()
-                  << ",commit(ms)="
-                  << std::chrono::duration_cast<std::chrono::milliseconds>(
-                         commitKeysEnd - prewriteKeys1)
-                         .count()
-                  << std::endl;
+        logStream.information()
+            << i << ",prewrite0(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   prewriteKeys0 - start)
+                   .count()
+            << ",prewrite1(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   prewriteKeys1 - prewriteKeys0)
+                   .count()
+            << ",prewrite(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   prewriteKeys1 - start)
+                   .count()
+            << ",commit(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   commitKeysEnd - prewriteKeys1)
+                   .count()
+            << std::endl;
         committer2.commitKeys(commitTS);
+        logStream.information()
+            << "committer2.commitKeys finished" << std::endl;
         Snapshot snap(test_cluster.get());
 
         // for(size_t j = 0; j< commitSize; ++j)
@@ -202,13 +208,13 @@ TEST_F(TestWith2PCRealTiKV, bcosCommmit_100) {
         auto result2 = snap.BatchGet(keys);
         for (size_t j = 0; j < commitSize; ++j) {
           if (result2[keys[i]] != values[i]) {
-            std::cout << "failed key=" << keys[i] << std::endl;
+            logStream.information() << "failed key=" << keys[i] << std::endl;
           }
           ASSERT_EQ(result2[keys[i]], values[i]);
         }
       } catch (const pingcap::Exception &e) {
-        std::cout << "message " << e.message() << ",code " << e.code()
-                  << ",what " << e.what();
+        logStream.information() << "message " << e.message() << ",code "
+                                << e.code() << ",what " << e.what();
       }
     }
   }
