@@ -198,6 +198,15 @@ TEST_F(TestWith2PCRealTiKV, bcosCommmit_100) {
         committer2.commitKeys(commitTS);
         logStream.information()
             << "committer2.commitKeys finished" << std::endl;
+        std::cout<<i << ",prewrite(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   prewriteKeys1 - start)
+                   .count()
+            << ",commit(ms)="
+            << std::chrono::duration_cast<std::chrono::milliseconds>(
+                   commitKeysEnd - prewriteKeys1)
+                   .count()
+            << std::endl;
         Snapshot snap(test_cluster.get());
 
         // for(size_t j = 0; j< commitSize; ++j)

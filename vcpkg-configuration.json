@@ -5,7 +5,8 @@
       "repository": "https://github.com/FISCO-BCOS/registry",
       "baseline": "d05858c7a8159c18c37ce96aca65cef207aceb6a",
       "packages": [
-        "boost-context"
+        "boost-context",
+        "openssl"
       ]
     }
   ]
