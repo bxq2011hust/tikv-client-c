@@ -16,9 +16,21 @@ hunter_config(
     CONFIG_MACRO=BOOST_UUID_RANDOM_PROVIDER_FORCE_POSIX
 )
 
+hunter_config(OpenSSL VERSION tassl_1.1.1b_v1.4-local
+    URL https://${URL_BASE}/FISCO-BCOS/TASSL-1.1.1b/archive/f9d60fa510e5fbe24413b4abdf1ea3a48f9ee6aa.tar.gz
+    SHA1 e56121278bf07587d58d154b4615f96575957d6f
+)
+
 hunter_config(
     Protobuf VERSION "v3.19.4"
     URL "https://github.com/cpp-pm/protobuf/archive/v3.19.4-p0.tar.gz"
     SHA1
     e5b797dbc4e6ad92d0924ae86c130be4354c35b6
 )
+
+# hunter_config(
+#     gRPC VERSION "v1.44.0-p0"
+#     URL "https://github.com/cpp-pm/grpc/archive/v1.44.0-p0.tar.gz"
+#     SHA1
+#     9521efd87a6ea0ca1102bf6e5acff835eecf5841
+# )
