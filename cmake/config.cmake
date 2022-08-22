@@ -15,3 +15,10 @@ hunter_config(
     CMAKE_ARGS
     CONFIG_MACRO=BOOST_UUID_RANDOM_PROVIDER_FORCE_POSIX
 )
+
+hunter_config(
+    Protobuf VERSION "v3.19.4"
+    URL "https://github.com/cpp-pm/protobuf/archive/v3.19.4-p0.tar.gz"
+    SHA1
+    e5b797dbc4e6ad92d0924ae86c130be4354c35b6
+)
