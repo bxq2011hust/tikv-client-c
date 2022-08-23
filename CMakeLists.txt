@@ -57,7 +57,9 @@ configure_package_config_file(
   INSTALL_DESTINATION "share/tikvclientc"
 )
 
-file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/HUNTER_INSTALL_PREFIX.txt ${HUNTER_INSTALL_PREFIX})
+# file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/HUNTER_INSTALL_PREFIX.txt ${HUNTER_INSTALL_PREFIX})
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/create_link.sh "rm -rf \$1 && ln -sn ${HUNTER_INSTALL_PREFIX} \$1")
+
 install(
   FILES "${CMAKE_BINARY_DIR}/tikvclientc-config.cmake"
   DESTINATION "share/tikvclientc"
